@@ -10,26 +10,39 @@ public class GameManager : MonoBehaviour
     public Button scissorsButton;
     public Button shootButton;
     public Button replayButton;
-    public Button homeButton; 
+    public Button homeButton;
 
     public TMP_Text playerChoiceText;
     public TMP_Text computerChoiceText;
     public TMP_Text resultText;
+
+    public AudioSource backgroundMusic;
+    public AudioSource soundEffects;
 
     private enum Choice { Rock, Paper, Scissors }
     private Choice playerChoice;
     private Choice computerChoice;
     private bool choiceMade = false;
 
+    private const string MusicKey = "MusicEnabled";
+    private const string SoundKey = "SoundEnabled";
+
     void Start()
     {
+        // Load audio settings
+        bool isMusicEnabled = PlayerPrefs.GetInt(MusicKey, 1) == 1;
+        bool isSoundEnabled = PlayerPrefs.GetInt(SoundKey, 1) == 1;
+
+        backgroundMusic.mute = !isMusicEnabled;
+        soundEffects.mute = !isSoundEnabled;
+
         // Set up button listeners
         rockButton.onClick.AddListener(() => OnChoiceMade(Choice.Rock));
         paperButton.onClick.AddListener(() => OnChoiceMade(Choice.Paper));
         scissorsButton.onClick.AddListener(() => OnChoiceMade(Choice.Scissors));
         shootButton.onClick.AddListener(DetermineWinner);
         replayButton.onClick.AddListener(ResetGame);
-        homeButton.onClick.AddListener(GoToHome); // Added Home Button Listener
+        homeButton.onClick.AddListener(GoToHome); // Home button listener
 
         // Initialize UI and button states
         replayButton.interactable = false;
@@ -45,6 +58,12 @@ public class GameManager : MonoBehaviour
         playerChoiceText.text = "Player Choice: " + choice.ToString();
         choiceMade = true;
         shootButton.interactable = true; // Enable the Shoot button
+
+        // Play a sound effect for button press if sound effects are enabled
+        if (!soundEffects.mute)
+        {
+            soundEffects.Play();
+        }
     }
 
     void DetermineWinner()
@@ -90,6 +109,12 @@ public class GameManager : MonoBehaviour
         DisableChoiceButtons();
         shootButton.interactable = false;
         replayButton.interactable = true;
+
+        // Play sound effect for the result if enabled
+        if (!soundEffects.mute)
+        {
+            soundEffects.Play();
+        }
     }
 
     void ResetGame()
