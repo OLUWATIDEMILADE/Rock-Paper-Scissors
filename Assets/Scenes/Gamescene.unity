@@ -333,6 +333,8 @@ MonoBehaviour:
   playerChoiceText: {fileID: 611287611}
   computerChoiceText: {fileID: 1222085247}
   resultText: {fileID: 1067019109}
+  backgroundMusic: {fileID: 804307137}
+  soundEffects: {fileID: 813746769}
 --- !u!4 &146578717
 Transform:
   m_ObjectHideFlags: 0
@@ -752,6 +754,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 611287609}
   m_CullTransparentMesh: 1
+--- !u!82 &804307137 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5471288874485530806, guid: d20b4d32a8fd0994db6ea859a0c6f248, type: 3}
+  m_PrefabInstance: {fileID: 1908465442}
+  m_PrefabAsset: {fileID: 0}
 --- !u!82 &813746769 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 54817772802697951, guid: a2f3b8d9a2257814db20616c526bc805, type: 3}
